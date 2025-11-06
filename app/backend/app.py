@@ -19,23 +19,12 @@ def validate_email(email):
 
 def validate_password(password):
     """
-    Validate password strength
-    Requirements:
-    - Minimum 8 characters
-    - At least one uppercase letter
-    - At least one lowercase letter
-    - At least one digit
+    Validate password (minimal validation - just non-empty)
     """
     errors = []
     
-    if len(password) < 8:
-        errors.append('Password must be at least 8 characters long')
-    if not re.search(r'[A-Z]', password):
-        errors.append('Password must contain at least one uppercase letter')
-    if not re.search(r'[a-z]', password):
-        errors.append('Password must contain at least one lowercase letter')
-    if not re.search(r'\d', password):
-        errors.append('Password must contain at least one digit')
+    if not password or len(password.strip()) == 0:
+        errors.append('Password is required')
     
     return len(errors) == 0, errors
 

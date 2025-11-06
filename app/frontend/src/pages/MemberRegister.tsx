@@ -26,17 +26,8 @@ const validateEmail = (email: string): { valid: boolean; error?: string } => {
 const validatePassword = (password: string): { valid: boolean; errors: string[] } => {
   const errors: string[] = [];
   
-  if (password.length < 8) {
-    errors.push('Password must be at least 8 characters long');
-  }
-  if (!/[A-Z]/.test(password)) {
-    errors.push('Password must contain at least one uppercase letter');
-  }
-  if (!/[a-z]/.test(password)) {
-    errors.push('Password must contain at least one lowercase letter');
-  }
-  if (!/\d/.test(password)) {
-    errors.push('Password must contain at least one digit');
+  if (!password || password.length === 0) {
+    errors.push('Password is required');
   }
   
   return { valid: errors.length === 0, errors };

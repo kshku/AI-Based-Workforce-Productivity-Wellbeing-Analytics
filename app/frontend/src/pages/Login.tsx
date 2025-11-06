@@ -31,11 +31,8 @@ const validateEmail = (email: string): { valid: boolean; error?: string } => {
 };
 
 const validatePassword = (password: string): { valid: boolean; error?: string } => {
-  if (!password || password.length === 0) {
+  if (!password || password.trim().length === 0) {
     return { valid: false, error: 'Password is required' };
-  }
-  if (password.length < 1) {
-    return { valid: false, error: 'Password cannot be empty' };
   }
   return { valid: true };
 };
