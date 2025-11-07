@@ -6,6 +6,7 @@ import {
   Avatar,
   LinearProgress,
   Paper,
+  CircularProgress,
 } from '@mui/material';
 import {
   VideoCall,
@@ -21,65 +22,147 @@ import {
 export const WellbeingProfile = () => {
   return (
     <Box sx={{ maxWidth: 1400, mx: 'auto', p: 3 }}>
-      {/* PRODUCTIVITY METRICS SECTION */}
-      <Typography variant="h4" sx={{ fontWeight: 700, mb: 4 }}>
-        Productivity Dashboard
-      </Typography>
-
-      {/* Efficiency Score Card */}
-      <Card
+      {/* Score Cards - Square boxes with circular progress */}
+      <Box
         sx={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          color: 'white',
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' },
+          gap: 3,
           mb: 4,
-          boxShadow: 3,
         }}
       >
+        {/* Wellbeing Score Card */}
+        <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
           <CardContent sx={{ p: 3 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-              <Box
-                sx={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: '50%',
-                  bgcolor: 'rgba(255, 255, 255, 0.2)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                }}
-              >
-                <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ fontWeight: 700 }}>
-                    {Math.round((92 + Math.max(0, 100 - 18 * 3) + Math.min(100, (38.5 / 40) * 100)) / 3)}
-                  </Typography>
-                  <Typography variant="caption">/100</Typography>
-                </Box>
-              </Box>
-              <Box sx={{ flex: 1 }}>
-                <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
-                  Overall Efficiency Score
-                </Typography>
-                <Typography variant="body2" sx={{ opacity: 0.9, mb: 2 }}>
-                  Based on task completion, meeting time, and logged hours
-                </Typography>
-                <LinearProgress
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Box sx={{ position: 'relative', display: 'inline-flex', mb: 2 }}>
+                <CircularProgress
                   variant="determinate"
-                  value={75}
+                  value={72}
+                  size={120}
+                  thickness={4}
                   sx={{
-                    height: 8,
-                    borderRadius: 4,
-                    bgcolor: 'rgba(255, 255, 255, 0.2)',
-                    '& .MuiLinearProgress-bar': {
-                      bgcolor: 'white',
-                      borderRadius: 4,
+                    color: '#f093fb',
+                    '& .MuiCircularProgress-circle': {
+                      strokeLinecap: 'round',
                     },
                   }}
                 />
+                <Box
+                  sx={{
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    position: 'absolute',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Typography variant="h4" component="div" sx={{ fontWeight: 700, color: '#f093fb' }}>
+                    72%
+                  </Typography>
+                </Box>
               </Box>
+              <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, textAlign: 'center' }}>
+                Wellbeing Score
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary', textAlign: 'center' }}>
+                Overall wellness based on workload, stress indicators, and work-life balance
+              </Typography>
             </Box>
           </CardContent>
-      </Card>
+        </Card>
+
+        {/* Burnout Risk Score Card */}
+        <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
+          <CardContent sx={{ p: 3 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Box sx={{ position: 'relative', display: 'inline-flex', mb: 2 }}>
+                <CircularProgress
+                  variant="determinate"
+                  value={35}
+                  size={120}
+                  thickness={4}
+                  sx={{
+                    color: '#fa709a',
+                    '& .MuiCircularProgress-circle': {
+                      strokeLinecap: 'round',
+                    },
+                  }}
+                />
+                <Box
+                  sx={{
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    position: 'absolute',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Typography variant="h4" component="div" sx={{ fontWeight: 700, color: '#fa709a' }}>
+                    35%
+                  </Typography>
+                </Box>
+              </Box>
+              <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, textAlign: 'center' }}>
+                Burnout Risk Score
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary', textAlign: 'center' }}>
+                Low risk - Your current workload and stress levels are manageable
+              </Typography>
+            </Box>
+          </CardContent>
+        </Card>
+
+        {/* Efficiency Score Card */}
+        <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
+          <CardContent sx={{ p: 3 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Box sx={{ position: 'relative', display: 'inline-flex', mb: 2 }}>
+                <CircularProgress
+                  variant="determinate"
+                  value={78}
+                  size={120}
+                  thickness={4}
+                  sx={{
+                    color: '#667eea',
+                    '& .MuiCircularProgress-circle': {
+                      strokeLinecap: 'round',
+                    },
+                  }}
+                />
+                <Box
+                  sx={{
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    position: 'absolute',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Typography variant="h4" component="div" sx={{ fontWeight: 700, color: '#667eea' }}>
+                    78%
+                  </Typography>
+                </Box>
+              </Box>
+              <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, textAlign: 'center' }}>
+                Overall Efficiency Score
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary', textAlign: 'center' }}>
+                Based on task completion, meeting time, and logged hours
+              </Typography>
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
 
       {/* Productivity Metrics Grid */}
       <Typography variant="h6" sx={{ fontWeight: 700, mb: 3 }}>
@@ -183,6 +266,15 @@ export const WellbeingProfile = () => {
               color: '#c0392b',
               bgColor: '#c0392b15',
               description: 'Left early',
+            },
+            {
+              title: 'Performance Score',
+              value: 85,
+              unit: '/100',
+              icon: <TrendingUp />,
+              color: '#8e44ad',
+              bgColor: '#8e44ad15',
+              description: 'Overall performance',
             },
           ].map((metric, index) => (
             <Paper

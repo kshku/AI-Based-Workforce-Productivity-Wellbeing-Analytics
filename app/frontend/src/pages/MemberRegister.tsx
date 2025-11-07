@@ -12,6 +12,9 @@ import {
   Stack,
 } from '@mui/material';
 import { Work } from '@mui/icons-material';
+import { registerWithEmail } from '../firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase/config';
 
 // ==================== VALIDATION UTILITIES ====================
 
@@ -143,34 +146,34 @@ export const MemberRegister = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          password: formData.password,
-          role: 'member',
-          phone: formData.phone.trim(),
-        }),
+      // Register user with Firebase Authentication
+      const firebaseUser = await registerWithEmail(
+        formData.email.trim(),
+        formData.password
+      );
+
+      // Store additional user data in Firestore
+      await setDoc(doc(db, 'users', firebaseUser.uid), {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        role: 'member',
+        phone: formData.phone.trim(),
+        createdAt: new Date().toISOString(),
       });
 
-      let data;
-      try {
-        data = await response.json();
-      } catch (e) {
-        throw new Error('Server is not responding. Make sure backend is running on port 5000.');
-      }
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Registration failed');
-      }
-
+      // Registration successful, navigate to login
       navigate('/login');
     } catch (err: any) {
-      setGeneralError(err.message || 'Registration failed. Please try again.');
+      // Provide user-friendly error messages
+      if (err.message?.includes('auth/email-already-in-use')) {
+        setGeneralError('This email is already registered. Please login instead.');
+      } else if (err.message?.includes('auth/weak-password')) {
+        setGeneralError('Password is too weak. Please use a stronger password.');
+      } else if (err.message?.includes('auth/invalid-email')) {
+        setGeneralError('Invalid email address format.');
+      } else {
+        setGeneralError(err.message || 'Registration failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
